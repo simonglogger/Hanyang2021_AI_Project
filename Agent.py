@@ -19,16 +19,16 @@ class Agent(nn.Module):
         self.memory = deque(maxlen=50000) 
         self.gamma = 0.95 
         self.epsilon = 1 
-        self.epsilon_decay = 0.99 
-        self.epsilon_min = 0.01 
-        self.learning_rate = 0.01  
+        self.epsilon_decay = 0.9985 
+        self.epsilon_min = 0.001 
+        self.learning_rate = 0.00005  
         
         self.model = nn.Sequential( 
-            nn.Linear(input_size, 24), 
-            nn.ReLU(), 
-            nn.Linear(24, 24), 
-            nn.ReLU(),
-            nn.Linear(24, output_size)) 
+            nn.Linear(input_size, 48), 
+            nn.Sigmoid(), 
+            nn.Linear(48, 48), 
+            nn.Sigmoid(),
+            nn.Linear(48, output_size)) 
     
     def forward(self, data): 
         return self.model(data)
@@ -68,12 +68,7 @@ class Agent(nn.Module):
             target_f[0][action] = target
             
             model_output = self.model.forward(state)
-            
-        print("Epsilon : ", self.epsilon)
-        print("########################")
-        if self.epsilon > self.epsilon_min:
-            self.epsilon *= self.epsilon_decay
-                
+     
         return model_output, target_f
 
     def load(self, name):

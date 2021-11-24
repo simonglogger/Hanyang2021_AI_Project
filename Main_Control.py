@@ -10,7 +10,7 @@ from Agent import Agent
 input_size = 5
 output_size = 2
 batch_size = 32
-n_episodes = 500
+n_episodes = 1000
 step_count_append = np.array([])
 
 agent = Agent(input_size, output_size)
@@ -41,39 +41,43 @@ for i in range (n_episodes):
                
         if bird_dead == 1: 
             break 
+        
+        if len(agent.memory) > batch_size:
+            if step_count % 4 == 0:
+                model_output, target_f = agent.replay(batch_size)
+                
+                optim_agent = optim.Adam(agent.parameters(), lr = agent.learning_rate)
+                agent.optimizer = optim_agent
+                    
+                loss_fcn = nn.MSELoss()
+                loss = loss_fcn(model_output, target_f)
+                
+                agent.optimizer.zero_grad() 
+                loss.backward() 
+                agent.optimizer.step()
 
         step_count += 1
-        
-    #Train with last game data
+      
+    if agent.epsilon > agent.epsilon_min:
+        agent.epsilon *= agent.epsilon_decay 
+      
     print("Step Count: ", step_count)
+    print("Epsilon : ", agent.epsilon)
+    print("########################")
     step_count_append = np.append(step_count_append, step_count)
-    
-    if len(agent.memory) > batch_size:
-        
-        model_output, target_f = agent.replay(batch_size)
-        
-        optim_agent = optim.Adam(agent.parameters(), lr = agent.learning_rate)
-        agent.optimizer = optim_agent
-            
-        loss_fcn = nn.MSELoss()
-        loss = loss_fcn(model_output, target_f)
-            
-        agent.optimizer.zero_grad() 
-        loss.backward() 
-        agent.optimizer.step()
-        
-        agent.memory.clear()
+
+    agent.memory.clear()
 
 length = len(step_count_append)
 x_values = np.array([])
 for i in range(length):
     x_values = np.append(x_values, i + 1)
-'''
+    
 plt.scatter(x_values, step_count_append)
 plt.xlabel('Episodes')
 plt.ylabel('Steps')
 plt.show()
-'''            
+         
  
         
 
