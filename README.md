@@ -31,10 +31,10 @@ In this project, three different python scripts are used for the training framew
   
 The algorith basically looks like this:  
   
-initialize game
-initialize agent
-for i in range(n_episodes)
-    get initial state
+initialize game  
+initialize agent  
+for i in range(n_episodes)  
+    get initial state  
     
     while bird_dead == False:
       action = agent(state) || f(random)
