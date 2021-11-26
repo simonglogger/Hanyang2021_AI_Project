@@ -30,6 +30,7 @@ Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-f
 In this project, three different python scripts are used for the training framework. The first script (Game_Functions) contains the game itsself. It's recieves an action and basically computes the new state and the reward. Another script (Agent) contains the class of the agent. In general, it gets the current game state and attempts to predict the most suitable action. Moreover, it stores the data for the replay memory. The thrid script (Main_Control) calls the other two scripts alternately and contains the training of the agent.
   
 The algorith basically looks like this:  
+  
   import packages
   initialize game  
   initialize agent  
