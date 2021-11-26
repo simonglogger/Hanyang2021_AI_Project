@@ -25,14 +25,10 @@ L(θ)=E(s,a,r,s′)∼U(D)[(r+γmaxa′Q(s′,a′;θ−)−Q(s,a;θ))2]
 
 Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-from-or-theoretically-motivated-by-the-bellman-equ
 
-## Implementation in Python
+## 4. Implementation in Python
 
 ## 4. Evaluation and Analysis
 
-## 5. Related Work
-
 ## 6. Conclusion
-
-## Titel: Training an agent to play flappy bird using reinforcement learning.
 
 
