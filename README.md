@@ -8,6 +8,8 @@ In this project, we are going to train a feedforward neural network using the ga
 the action (jump (1) or don't jump, i.e. do nothing (0)) as output and a reward function. For training the neural network, 
 we are going to use backpropagation. The agent is supposed to improve and increase the score troughout training.
 
+<img src=".Result_Training_Simple_Game.png">
+
 
 ## 2. Datsaets/Game
 
