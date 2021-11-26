@@ -1,12 +1,12 @@
 # Hanyang2021_AI_Project
 
 ## 1. Introduction
-The main target of this project is to train an agent how to play the game flappy bird using neural networks and reinforcement learning (Deep Q Learning). 
+The main target of this project is to train an agent to play the game flappy bird using neural networks and reinforcement learning (deep q learning).   
 The basic version of the game itsself can be downloaded from grantjenks. Nevertheless, the game is adapted massively for the present project. 
-The goal of flappy bird is to pass in between two incoming balls in order to survive and increase the score. Since flappy bird moves down constantly, the only available action a player can choose is a vertical jump. As soon as flappy bird collides with the walls or the balls, the game is over. The score is defined by the number of ball pairs flappy bird passes.
+The goal of flappy bird is to pass in between two incoming balls in order to survive and increase the score. Since flappy bird moves down constantly, the only available action an agent can choose is a vertical jump. As soon as flappy bird collides with the walls or the balls, the game is over. The score is defined by the number of ball pairs flappy bird passes.  
 In this project, we are going to train a feedforward neural network using the game state information as input, 
 the action (jump (1) or don't jump, i.e. do nothing (0)) as output and a reward function. For training the neural network, 
-we are going to use backpropagation. The agent is supposed to improve and increase the score troughout training.
+we are going to use backpropagation. The agent is supposed to improve and increase the score troughout training.  
 
 <img src="Result_Training_Simple_Game.png">
 
@@ -27,7 +27,7 @@ Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-f
 
 ## 4. Implementation in Python
 
-## 4. Evaluation and Analysis
+## 5. Evaluation and Analysis
 
 ## 6. Conclusion
 
