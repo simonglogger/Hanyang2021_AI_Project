@@ -11,7 +11,7 @@ we are going to use backpropagation. The agent is supposed to improve and increa
 <img src="Result_Training_Simple_Game.png">
 
 Sources: 
-Game: http://www.grantjenks.com/docs/freegames/flappy.html
+Game: http://www.grantjenks.com/docs/freegames/flappy.html  
 DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/notebooks/cartpole_dqn.ipynb
 
 
