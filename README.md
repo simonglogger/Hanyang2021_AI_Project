@@ -27,6 +27,35 @@ L(θ)=E(s,a,r,s′)∼U(D)[(r+γmaxa′Q(s′,a′;θ−)−Q(s,a;θ))2]
 Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-from-or-theoretically-motivated-by-the-bellman-equ
 
 ## 4. Implementation in Python
+In this project, three different python scripts are used for the training framework. The first script (Game_Functions) contains the game itsself. It's recieves an action and basically computes the new state and the reward. Another script (Agent) contains the class of the agent. In general, it gets the current game state and attempts to predict the most suitable action. Moreover, it stores the data for the replay memory. The thrid script (Main_Control) calls the other two scripts alternately and contains the training of the agent.
+  
+The algorith basically looks like this:  
+  
+initialize game
+initialize agent
+for i in range(n_episodes)
+    get initial state
+    
+    while bird_dead == False:
+      action = agent(state) || f(random)
+      replay_memory_data (e.g. reward) = game(action)
+      
+      if (score > max_steps) & (epsilon < 0.6)
+        save nn
+        learning_rate *= 0.1
+        max_steps += XX
+      
+    training_data = random.sample(memory)
+    prediction = agent(training_data)
+    loss = lossf(target, prediction) 
+    
+    agent.optimizer.zero_grad() 
+    loss.backward() 
+    agent.optimizer.step()
+    
+ 
+      
+
 
 ## 5. Evaluation and Analysis
 
