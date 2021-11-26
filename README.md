@@ -31,27 +31,27 @@ In this project, three different python scripts are used for the training framew
   
 The algorith basically looks like this:  
   
-initialize game  
-initialize agent  
-for i in range(n_episodes)  
-    get initial state  
-    
-    while bird_dead == False:
-      action = agent(state) || f(random)
-      replay_memory_data (e.g. reward) = game(action)
-      
-      if (score > max_steps) & (epsilon < 0.6)
-        save nn
-        learning_rate *= 0.1
-        max_steps += XX
-      
-    training_data = random.sample(memory)
-    prediction = agent(training_data)
-    loss = lossf(target, prediction) 
-    
-    agent.optimizer.zero_grad() 
-    loss.backward() 
-    agent.optimizer.step()
+  initialize game  
+  initialize agent  
+  for i in range(n_episodes)  
+      get initial state  
+
+      while bird_dead == False:
+        action = agent(state) || f(random)
+        replay_memory_data (e.g. reward) = game(action)
+
+        if (score > max_steps) & (epsilon < 0.6)
+          save nn
+          learning_rate *= 0.1
+          max_steps += XX
+
+      training_data = random.sample(memory)
+      prediction = agent(training_data)
+      loss = lossf(target, prediction) 
+
+      agent.optimizer.zero_grad() 
+      loss.backward() 
+      agent.optimizer.step()
     
  
       
