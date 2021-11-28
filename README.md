@@ -47,6 +47,7 @@ The loss function of the gradient update by backward pass is going to be
 Experience replay : learning from batches of consecutive samples is bad because consecutive samples are strongly correlated -> unefficient learning
 Keep replay memory table of transitions as episodes are played, an train Q-network on random minibatches of transitions from the replay memory
 
+```
 Initialize replay memory D to size N  
 Initialize action-value function Q with random weights  
 for episode = 1, M do  
@@ -63,7 +64,7 @@ for episode = 1, M do
         Perform a gradient step on (y_j-Q(s_j,a_j; θ_i))^2 with respect to θ  
     end for  
 end for  
-
+```
 
 State, Action, Reward, Greedy Policy, Epsilon, Epsilon Decay, Replay Memory, Batch Size, Bellman Equation, Q-Learning, Difference to Deep Q Learning, 
 
