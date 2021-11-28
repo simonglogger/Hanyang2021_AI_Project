@@ -20,6 +20,35 @@ DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/not
 
 ## 3. Reinrorcement Learning/Deep Q Learning
 
+In order to train our agent to play Flappy Bird by itself, we chose to use Reinforcement Learning, and more precisely Deep Q Learning. Reinforcement Learning is one of the three main fields of Machine Learning, alongside supervised and unsupervised Learning.
+
+The working principle of Reinforcement Learning is that there is an agent leaving in an environment.The environment gives the agent a state, in return the agent takes an action, and then the environment provides a numerical reward in response to this action to the agent, as well as its next state. This process is going to be repeated ate every step and the goal is to learn how to take the best actions in order to maximize the reward received.
+
+A Markov Decision Problem is the mathematical formulation of the Reinforcement Learning problem. It satisfies the Markov proprety, which is that the current state completely characterises the state of the world. An MDP is characterized by
+- a set of possible states
+- a set of possible actions
+- distribution of reward
+- transition probability over next state 
+- a discount factor (how much we value rewards coming on soon vs later on)
+
+Initialize replay memory D to size N
+Initialize action-value function Q with random weights
+for episode = 1, M do
+    Initialize state s_1
+    for t = 1, T do
+        With probability ϵ select random action a_t
+        otherwise select a_t=max_a  Q(s_t,a; θ_i)
+        Execute action a_t in emulator and observe r_t and s_(t+1)
+        Store transition (s_t,a_t,r_t,s_(t+1)) in D
+        Sample a minibatch of transitions (s_j,a_j,r_j,s_(j+1)) from D
+        Set y_j:=
+            r_j for terminal s_(j+1)
+            r_j+γ* max_(a^' )  Q(s_(j+1),a'; θ_i) for non-terminal s_(j+1)
+        Perform a gradient step on (y_j-Q(s_j,a_j; θ_i))^2 with respect to θ
+    end for
+end for
+
+
 State, Action, Reward, Greedy Policy, Epsilon, Epsilon Decay, Replay Memory, Batch Size, Bellman Equation, Q-Learning, Difference to Deep Q Learning, 
 
 L(θ)=E(s,a,r,s′)∼U(D)[(r+γmaxa′Q(s′,a′;θ−)−Q(s,a;θ))2]
