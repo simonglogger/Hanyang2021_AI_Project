@@ -22,30 +22,28 @@ DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/not
 
 In order to train our agent to play Flappy Bird by itself, we chose to use Reinforcement Learning, and more precisely Deep Q Learning. Reinforcement Learning is one of the three main fields of Machine Learning, alongside supervised and unsupervised Learning.
 
-The working principle of Reinforcement Learning is that there is an agent leaving in an environment.The environment gives the agent a state, in return the agent takes an action, and then the environment provides a numerical reward in response to this action to the agent, as well as its next state. This process is going to be repeated ate every step and the goal is to learn how to take the best actions in order to maximize the reward received.
+The working principle of Reinforcement Learning is that there is an agent leaving in an environment. The environment gives the agent a state, in return the agent takes an action, and then the environment provides a numerical reward in response to this action to the agent, as well as its next state. This process is going to be repeated at every step and the goal is to learn how to take the best actions in order to maximize the reward received.
 
-A Markov Decision Problem is the mathematical formulation of the Reinforcement Learning problem. It satisfies the Markov proprety, which is that the current state completely characterises the state of the world. An MDP is characterized by
-- a set of possible states
-- a set of possible actions
-- distribution of reward
-- transition probability over next state 
-- a discount factor (how much we value rewards coming on soon vs later on)
+In our case, a state is going to be a set of 5 different variables:
+-
+-
+-
+-
+-
 
-A policy pi is a function from the S (the set of states) to A (the state of action) that specifies what action has to be taken at every state. The goal is going to find the optimal policy pi* that maximizes cumulative discounted reward. In order to handle the randomness of the interaction between the environment and the agent, we maximize the expected sum of rewards.
+The two actions that the bird can take are to flap or to do nothing.
 
-How can we tell how good a state is? We use the value function at state s, which is the expected cumulative reward when using the policy pi.
-How good is a state-action pair? To quantify that, we use the Q-value function at state s and action a, which is the expected cumulative reward from taking action a in state s and then following the policy.
-The optimal Q-value function that we can get is Q*, the maximum expected cumulative reward achievable from a given state-action pair.
-Q* satisfies the Bellman equation (given any state-action pair, the value of this pair is going to be the value of the reward that we are going to get plus the value of whatever state we are going to get). 
-Our optimal policy is going to consist in taking the best action at any state as specified by Q*.
-One way to solve it is with a value iteration algorithm, where the Bellman equation is being used as an iterative update
-Problem : not scalable, must compute Q(s,a) for every state-pair action. We can use instead a neural network as a function approximator
-When the function approximator is a deep neural network -> Deep Q Learning
-We want to find a function that satisfies the Bellman equation, we want to get as close to the expected reward as possible (iteratively)
-The loss function of the gradient update by backward pass is going to be
+How can we quantify how good or bad taking a particular action at a given state is? For that, we use what is called a Q-value function. Q(s,a) is the Q-value function, which gives the expected cumulative reward from taking action a in state s. 
+A discount factor gamma can be introduced in the cumulative reward formula in order to give more importance to rewards coming in the next steps than steps that are coming later on.
+The goal of Reinforcement Learning, and thus of Q learning is to maximize this sum of cumulative rewards, because we want the agent to perform as good as possible according to our criterias, in other words we want the bird to fly as long as possible without hitting a ball. In order to achieve that, we need to find Q*, which is the function giving the maximum expected cumulative reward achievable from a given state-action pair. Q* satisfies the Bellman equation. The optimal policy consists in taking the best action at any state as specified by Q*, one way to solve this is with a value iteration algorithm where the Bellman equation is being used as an iterative update.
 
-Experience replay : learning from batches of consecutive samples is bad because consecutive samples are strongly correlated -> unefficient learning
-Keep replay memory table of transitions as episodes are played, an train Q-network on random minibatches of transitions from the replay memory
+One problem with this method is that we can must compute Q(s,a) for every existing state-action pair, which is not possible given that a state is compounded by 5 different variables. A solution for this problem is to use a neural network as a function approximator, the algorithm is then called Deep Q Learning. In order to find a function that satisfies the Bellman equation, we want to get as close as possible to the expected reward, for that we define the loss function as following, which is going to be by backward passed via gradient update to the different layers of the deep neural network.
+
+L(θ)=E(s,a,r,s′)∼U(D)[(r+γmaxa′Q(s′,a′;θ−)−Q(s,a;θ))2]
+
+The Q-neural network needs to be trained in order to be performant enough to get close to the expected reward given by the Bellman equation. For that, every transitions from a state to another are kept in a replay memory table, and random batches of transitions are created to train the neural network. The reason for that is the experience replay method : learning from batches of consecutive samples is unefficient and will not lead to good performance because consecutive samples are strongly correlated.
+
+Finally, in order to improve the training of the neural network, we define a randomness probability that tells wether the action at a given state is going to be taken by the agent or randomly. This probability epsilon is initialized at 1 or a number close to 1, then we define a decay smallert than 1, which will be multiplied to the epsilon at every step. By the end of the learning, the epsilon will reach its minimum value, and almost all of the decisions regarding the next action will be taken by the neural network.
 
 ```
 Initialize replay memory D to size N  
@@ -66,9 +64,7 @@ for episode = 1, M do
 end for  
 ```
 
-State, Action, Reward, Greedy Policy, Epsilon, Epsilon Decay, Replay Memory, Batch Size, Bellman Equation, Q-Learning, Difference to Deep Q Learning, 
-
-L(θ)=E(s,a,r,s′)∼U(D)[(r+γmaxa′Q(s′,a′;θ−)−Q(s,a;θ))2]
+**State, Action, Reward**, Greedy Policy, Epsilon, Epsilon Decay, **Replay Memory, Batch Size, Bellman Equation, Q-Learning, Difference to Deep Q Learning**, 
 
 Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-from-or-theoretically-motivated-by-the-bellman-equ
 
