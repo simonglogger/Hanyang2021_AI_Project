@@ -31,22 +31,38 @@ A Markov Decision Problem is the mathematical formulation of the Reinforcement L
 - transition probability over next state 
 - a discount factor (how much we value rewards coming on soon vs later on)
 
-Initialize replay memory D to size N
-Initialize action-value function Q with random weights
-for episode = 1, M do
-    Initialize state s_1
-    for t = 1, T do
-        With probability ϵ select random action a_t
-        otherwise select a_t=max_a  Q(s_t,a; θ_i)
-        Execute action a_t in emulator and observe r_t and s_(t+1)
-        Store transition (s_t,a_t,r_t,s_(t+1)) in D
-        Sample a minibatch of transitions (s_j,a_j,r_j,s_(j+1)) from D
-        Set y_j:=
-            r_j for terminal s_(j+1)
-            r_j+γ* max_(a^' )  Q(s_(j+1),a'; θ_i) for non-terminal s_(j+1)
-        Perform a gradient step on (y_j-Q(s_j,a_j; θ_i))^2 with respect to θ
-    end for
-end for
+A policy pi is a function from the S (the set of states) to A (the state of action) that specifies what action has to be taken at every state. The goal is going to find the optimal policy pi* that maximizes cumulative discounted reward. In order to handle the randomness of the interaction between the environment and the agent, we maximize the expected sum of rewards.
+
+How can we tell how good a state is? We use the value function at state s, which is the expected cumulative reward when using the policy pi.
+How good is a state-action pair? To quantify that, we use the Q-value function at state s and action a, which is the expected cumulative reward from taking action a in state s and then following the policy.
+The optimal Q-value function that we can get is Q*, the maximum expected cumulative reward achievable from a given state-action pair.
+Q* satisfies the Bellman equation (given any state-action pair, the value of this pair is going to be the value of the reward that we are going to get plus the value of whatever state we are going to get). 
+Our optimal policy is going to consist in taking the best action at any state as specified by Q*.
+One way to solve it is with a value iteration algorithm, where the Bellman equation is being used as an iterative update
+Problem : not scalable, must compute Q(s,a) for every state-pair action. We can use instead a neural network as a function approximator
+When the function approximator is a deep neural network -> Deep Q Learning
+We want to find a function that satisfies the Bellman equation, we want to get as close to the expected reward as possible (iteratively)
+The loss function of the gradient update by backward pass is going to be
+
+Experience replay : learning from batches of consecutive samples is bad because consecutive samples are strongly correlated -> unefficient learning
+Keep replay memory table of transitions as episodes are played, an train Q-network on random minibatches of transitions from the replay memory
+
+Initialize replay memory D to size N  
+Initialize action-value function Q with random weights  
+for episode = 1, M do  
+    Initialize state s_1  
+    for t = 1, T do  
+        With probability ϵ select random action a_t  
+        otherwise select a_t=max_a  Q(s_t,a; θ_i)  
+        Execute action a_t in emulator and observe r_t and s_(t+1)  
+        Store transition (s_t,a_t,r_t,s_(t+1)) in D  
+        Sample a minibatch of transitions (s_j,a_j,r_j,s_(j+1)) from D  
+        Set y_j:=  
+            r_j for terminal s_(j+1)  
+            r_j+γ* max_(a^' )  Q(s_(j+1),a'; θ_i) for non-terminal s_(j+1)  
+        Perform a gradient step on (y_j-Q(s_j,a_j; θ_i))^2 with respect to θ  
+    end for  
+end for  
 
 
 State, Action, Reward, Greedy Policy, Epsilon, Epsilon Decay, Replay Memory, Batch Size, Bellman Equation, Q-Learning, Difference to Deep Q Learning, 
