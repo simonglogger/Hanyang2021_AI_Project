@@ -81,7 +81,7 @@ In this project, three different python scripts are used as a training framework
   
 In order to initialize and train the agents' neural network, we use the Machine Learning framework Pytorch. We define a neural network with 6 nodes in the input layer, 24 nodes within two hidden layers each and two nodes in the output layer. Output 0 equals doing nothing, output 1 is related to the action jump. The agent checks which output has the higher value/probability to recieve a maximum positive reward and chooses the corresponding action. We use a dynamic learning rate that is divided by 10 for each time the agents reaches the maximum score. For each time this happens, the value for the maximum score itsself gets increased by a certain number. The loss for the training of the neural network is calculated as described in chapter 3. As a loss function, the Mean Squared Error (MSE) is applied. Furthermore, we use the Adam algorithm as an optimizer. Before backpropagation is performed on the computed loss, all old gradients are set to zero. The backpropagation algorithm then calculates the new gradients for the current loss. Using gradient descent, the neural network's values for weights and biases are updated. For each training epoch, a batch of samples from the replay memory is used.
     
- 
+The agent gets a positive reward of 1 for passing a pair of balls and a negative reward of -10 for dying because of crashing. In order to speed up the training process, the agent also gets a small positive reward for being vertically close to the center of the next pair of balls and a small negative reward for being too far away.  
       
 
 
