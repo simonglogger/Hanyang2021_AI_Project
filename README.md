@@ -19,8 +19,9 @@ The game map:
 
 <img src="Game.png" width="400">
   
-Sources: 
+Sources:   
 Game: http://www.grantjenks.com/docs/freegames/flappy.html 
+  
   
 ## 3. Reinrorcement Learning/Deep Q Learning
 
@@ -28,14 +29,17 @@ In order to train our agent to play Flappy Bird by itself, we chose to use Reinf
 
 The working principle of Reinforcement Learning is that there is an agent leaving in an environment. The environment gives the agent a state, in return the agent takes an action, and then the environment provides a numerical reward in response to this action to the agent, as well as its next state. This process is going to be repeated at every step and the goal is to learn how to take the best actions in order to maximize the reward received.
 
-In our case, a state is going to be a set of 5 different variables:
--
--
--
--
--
-
-The two actions that the bird can take are to flap or to do nothing.
+In our case, a state is going to be a set of 6 different variables:
+- The y-position of the bird
+- The y-position of the lower wall (constant)
+- The y-position of the upper wall (constant) 
+- The x-position of the closest pair of balls 
+- The y-position of the next lower ball
+- The y-position of the next upper ball
+  
+All state features are normalized within a range from 0 to 1.
+  
+The two actions that the bird can take are either to flap or to do nothing.
 
 How can we quantify how good or bad taking a particular action at a given state is? For that, we use what is called a Q-value function. Q(s,a) is the Q-value function, which gives the expected cumulative reward from taking action a in state s. 
 A discount factor gamma can be introduced in the cumulative reward formula in order to give more importance to rewards coming in the next steps than steps that are coming later on.
@@ -73,32 +77,9 @@ end for
 Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-from-or-theoretically-motivated-by-the-bellman-equ
 
 ## 4. Implementation in Python
-In this project, three different python scripts are used for the training framework. The first script (Game_Functions) contains the game itsself. It's recieves an action and basically computes the new state and the reward. Another script (Agent) contains the class of the agent. In general, it gets the current game state and attempts to predict the most suitable action. Moreover, it stores the data for the replay memory. The thrid script (Main_Control) calls the other two scripts alternately and contains the training of the agent.
+In this project, three different python scripts are used as a training framework. The first script (Game_Functions) contains the game itsself. It recieves an action and basically computes the new state and the reward. Another script (Agent) contains the class of the agent. In general, it gets the current game state and attempts to predict the most suitable action. Moreover, it stores the data for the replay memory. The thrid script (Main_Control) calls the other two scripts alternately and contains the training of the agent. 
   
-The algorith basically looks like this:  
-  
-  import packages
-  initialize game  
-  initialize agent  
-  for i in range(n_episodes)  
-      get initial state  
-
-      while bird_dead == False:
-        action = agent(state) || f(random)
-        replay_memory_data (e.g. reward) = game(action)
-
-        if (score > max_steps) & (epsilon < 0.6)
-          save nn
-          learning_rate *= 0.1
-          max_steps += XX
-
-      training_data = random.sample(memory)
-      prediction = agent(training_data)
-      loss = lossf(target, prediction) 
-
-      agent.optimizer.zero_grad() 
-      loss.backward() 
-      agent.optimizer.step()
+In order to initialize and train the agents' neural network, we use the Machine Learning framework Pytorch. We define a neural network with 6 nodes in the input layer, 24 nodes within two hidden layers each and two nodes in the output layer. Output 0 equals doing nothing, output 1 is related to the action jump. The agent checks which output has the higher value/probability to recieve a maximum positive reward and chooses the corresponding action. We use a dynamic learning rate that is divided by 10 for each time the agents reaches the maximum score. For each time this happens, the value for the maximum score itsself gets increased by a certain number. The loss for the training of the neural network is calculated as described in chapter 3. As a loss function, the Mean Squared Error (MSE) is applied. Furthermore, we use the Adam algorithm as an optimizer. Before backpropagation is performed on the computed loss, all old gradients are set to zero. The backpropagation algorithm then calculates the new gradients for the current loss. Using gradient descent, the neural network's values for weights and biases are updated. For each training epoch, a batch of samples from the replay memory is used.
     
  
       
