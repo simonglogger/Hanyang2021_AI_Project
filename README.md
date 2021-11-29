@@ -8,16 +8,20 @@ In this project, we are going to train a feedforward neural network using the ga
 the action (jump (1) or don't jump, i.e. do nothing (0)) as output and a reward function. For training the neural network, 
 we are going to use backpropagation. The agent is supposed to improve and increase the score troughout training.  
 
-<img src="Result_Training_Simple_Game.png">
-
-Sources: 
-Game: http://www.grantjenks.com/docs/freegames/flappy.html  
+Sources:   
 DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/notebooks/cartpole_dqn.ipynb
 
 
 ## 2. Datsaets/Game
-
-
+We use a simple version of the famous game Flappy Bird and adapt the source code to our needs. A pair of two balls with a fixed vertical distance is initialized every 30 frames of the game at the right end of the map. The vertical distance of a pair of balls to the walls is set randomly. Each ball within the game moves 3 pixels to the left each frame. Flappy Bird itsself is always located in the horizontal center of the map and falls down 5 pixels each frame. If the action equals 1, the bird jumps up 20 pixels. The whole map consists of 400 x 400 pixels. As soon as Flappy Bird touches either the wall or a ball, it dies. The center of the game map is also the position for the coordinate system.
+  
+The game map:
+  
+<img src="Game.png">
+  
+Sources: 
+Game: http://www.grantjenks.com/docs/freegames/flappy.html 
+  
 ## 3. Reinrorcement Learning/Deep Q Learning
 
 In order to train our agent to play Flappy Bird by itself, we chose to use Reinforcement Learning, and more precisely Deep Q Learning. Reinforcement Learning is one of the three main fields of Machine Learning, alongside supervised and unsupervised Learning.
