@@ -16,10 +16,8 @@ DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/not
 We use a simple version of the famous game Flappy Bird and adapt the source code to our needs. A pair of two balls with a fixed vertical distance is initialized every 30 frames of the game at the right end of the map. The vertical distance of a pair of balls to the walls is set randomly. Each ball within the game moves 3 pixels to the left each frame. Flappy Bird itsself is always located in the horizontal center of the map and falls down 5 pixels each frame. If the action equals 1, the bird jumps up 20 pixels. The whole map consists of 400 x 400 pixels. As soon as Flappy Bird touches either the wall, a ball or the space between one wall and one ball, it dies. The center of the game map is also the position for the coordinate system.
   
 The game map:
-  
-![]<img src="Game.png" =250x250> 
 
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =250x250)
+<img src="Game.png" width="48">
   
 Sources: 
 Game: http://www.grantjenks.com/docs/freegames/flappy.html 
