@@ -34,8 +34,8 @@ In our case, a state is going to be a set of 6 different variables:
 - The y-position of the lower wall (constant)
 - The y-position of the upper wall (constant) 
 - The x-position of the closest pair of balls 
-- The y-position of the next lower ball
-- The y-position of the next upper ball
+- The y-position of the next lower ball (constant)
+- The y-position of the next upper ball (constant)
   
 All state features are normalized within a range from 0 to 1.
   
