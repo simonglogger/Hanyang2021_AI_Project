@@ -100,7 +100,9 @@ In the beginning, it's difficult for the agent to learn something meaningful. Af
   
 The neural network that is saved last is then used for testing the AI agent within the easy game. As a result, the easy game can be played endless.
   
+  
 https://user-images.githubusercontent.com/92134911/143967696-249a0b24-6c30-4693-8608-60f41a1c3ebc.mp4
+  
   
 - Difficult Game:  
 The training of the AI agent for the difficult game can be taken from the following image.  
@@ -113,9 +115,11 @@ If the saved neural network is then used to test the AI agent within the difficu
   
 In this case, the game can not be played endless, but reaches a maximum score of 25. From this, it can be concluded that the AI agent still learns something meaningful during training. 
   
+  
 https://user-images.githubusercontent.com/92134911/143968297-7f640a86-93b7-44f5-b8b9-6f372bd3527f.mp4
   
   
+  
 ## 6. Conclusion  
-
+After testing both game setups, one can clearly say that in both cases, the AI agent at least learnt something meaningful. For the easy game, the agent basically just has to stay in the vertical center of the map and slightly adjusts his hight. This might be the reason why it's pretty easy for the agent to play the game endless. For the difficult game, the AI agent has to move more. It has particular problems when it misses the time to jump after a long drop to a deeper pair of balls, causing it to crash into the lower of the two. It might be possible that a specific parameter setting or another structure of the neural network enables a better training using the same algorithm. One can also consider using the entire game map as an input state to the agent instead of the 6 features that are related to different positions. It would then also be necessary to use a convolutional neural network. Nevertheless, the main goal of this project is achieved, since we can provide a framework that trains an AI agent to play the game Flappy Bird.    
 
