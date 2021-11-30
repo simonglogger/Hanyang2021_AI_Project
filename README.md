@@ -1,9 +1,9 @@
 # Hanyang2021_AI_Project
 
 ## 1. Introduction
-The main target of this project is to train an agent to play the game flappy bird using neural networks and reinforcement learning (deep q learning).   
+The main target of this project is to train an agent to play the game Flappy Bird using neural networks and Reinforcement Learning (Deep Q Learning).   
   
-Flappy Bird tries to pass in between two incoming balls in order to survive and increase the score. Since flappy bird moves down constantly, the only available action an agent can choose is a vertical jump. As soon as flappy bird collides with the walls or one of the balls, the game is over. The score is defined by the number of ball pairs flappy bird passes.  
+Flappy Bird tries to pass in between two incoming balls in order to survive and increase the score. Since Flappy Bird moves down constantly, the only available action an agent can choose is a vertical jump. As soon as flappy bird collides with the walls or one of the balls, the game is over. The score is defined by the number of ball pairs Flappy Bird passes.  
 In this project, we are going to train a feedforward neural network using the game state information as input, 
 the action (jump (1) or don't jump, i.e. do nothing (0)) as output and a reward function. For training the neural network, 
 we are going to use backpropagation. The agent is supposed to improve and increase the score troughout training.  
@@ -13,7 +13,7 @@ DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/not
 
 
 ## 2. Datasets/Game
-We use a simple version of the famous game Flappy Bird and adapt the source code to our needs. A pair of two balls with a fixed vertical distance is initialized every 30 frames of the game at the right end of the map. The vertical distance of a pair of balls to the walls is set randomly. Each ball within the game moves 3 pixels to the left each frame. Flappy Bird itsself is always located in the horizontal center of the map and falls down 5 pixels each frame. If the action equals 1, the bird jumps up 20 pixels. The whole map consists of 400 x 400 pixels. As soon as Flappy Bird touches either the wall, a ball or the space between one wall and the corresponding ball, it dies. The center of the game map is also the position for the coordinate system.
+We use a simple version of the famous game Flappy Bird and adapt the source code to our needs. A pair of two balls with a fixed vertical distance is initialized every 30 frames of the game at the right end of the map. The vertical distance of a pair of balls to the walls is set randomly. Each ball within the game moves 3 pixels to the left each frame. Flappy Bird itself is always located in the horizontal center of the map and falls down 5 pixels each frame. If the action equals 1, the bird jumps up 20 pixels. The whole map consists of 400 x 400 pixels. As soon as Flappy Bird touches either the wall, a ball or the space between one wall and the corresponding ball, it dies. The center of the game map is also the position for the coordinate system.
   
 The game map:
 
@@ -49,7 +49,7 @@ We thus have to find Q*, which is the function giving the maximum expected cumul
 
 One problem with this method is that we must compute Q(s,a) for every existing state-action pair, which is not possible given that a state is compounded by 6 different variables, so there exists an infinite number of states. A solution for this problem is to use a neural network as a function approximator, the algorithm is then called Deep Q Learning. 
 
-In order to find a function that satisfies the Bellman equation, we want to get as close as possible to the expected reward, for that we define the loss function as following, which is going to be used to train the neural network by backward passing the loss via gradient descent to the different layers of the deep neural network.
+In order to find a function that satisfies the Bellman equation, we want to get as close as possible to the expected reward, for that we define the loss function as following, which is going to be used to train the neural network by backpropagating the loss via gradient descent to the different layers of the deep neural network.
 
 L(θ)=E(s,a,r,s′)∼U(D)[(r+γmaxa′Q(s′,a′;θ−)−Q(s,a;θ))2]
 
@@ -81,9 +81,9 @@ end for
 Link: https://ai.stackexchange.com/questions/25086/how-is-the-dqn-loss-derived-from-or-theoretically-motivated-by-the-bellman-equ
 
 ## 4. Implementation in Python
-In this project, three different python scripts are used as a training framework. The first script (Game_Functions) contains the game itsself. It recieves an action and basically computes the new state and the reward. Another script (Agent) contains the class of the agent. In general, it gets the current game state and attempts to predict the most suitable action. Moreover, it stores the data for the replay memory. The thrid script (Main_Control) calls the other two scripts alternately and contains the training of the agent. 
+In this project, three different python scripts are used as a training framework. The first script (Game_Functions) contains the game itself. It receives an action and basically computes the new state and the reward. Another script (Agent) contains the class of the agent. In general, it gets the current game state and attempts to predict the most suitable action. Moreover, it stores the data for the replay memory. The thrid script (Main_Control) calls the other two scripts alternately and contains the training of the agent. 
   
-In order to initialize and train the agents' neural network, we use the Machine Learning framework Pytorch. We define a neural network with 6 nodes in the input layer, 24 nodes within two hidden layers each and two nodes in the output layer. Output 0 equals doing nothing, output 1 is related to the action jump. The agent checks which output has the higher value/probability to recieve a maximum positive reward and chooses the corresponding action. We use a dynamic learning rate that is divided by 10 for each time the agents reaches the maximum score. For each time this happens, the value for the maximum score itsself gets increased by a certain number. The loss for the training of the neural network is calculated as described in chapter 3. As a loss function, the Mean Squared Error (MSE) is applied. Furthermore, we use the Adam algorithm as an optimizer. Before backpropagation is performed on the computed loss, all old gradients are set to zero. The backpropagation algorithm then calculates the new gradients for the current loss. Using gradient descent, the neural network's values for weights and biases are updated. For each training epoch, a batch of samples from the replay memory is used.
+In order to initialize and train the agent's neural network, we use the Machine Learning framework Pytorch. We define a neural network with 6 nodes in the input layer, 24 nodes within two hidden layers each and two nodes in the output layer. Output 0 equals doing nothing, output 1 is related to the action jump. The agent checks which output has the higher value/probability to receive a maximum positive reward and chooses the corresponding action. We use a dynamic learning rate that is divided by 10 for each time the agents reaches the maximum score. For each time this happens, the value for the maximum score itself gets increased by a certain number. The loss for the training of the neural network is calculated as described in chapter 3. As a loss function, the Mean Squared Error (MSE) is applied. Furthermore, we use the Adam algorithm as an optimizer. Before backpropagation is performed on the computed loss, all old gradients are set to zero. The backpropagation algorithm then calculates the new gradients for the current loss. Using gradient descent, the neural network's values for weights and biases are updated. For each training epoch, a batch of samples from the replay memory is used.
     
 The agent gets a positive reward of 1 for passing a pair of balls and a negative reward of -10 for dying because of crashing. In order to speed up the training process, the agent also gets a small positive reward for being vertically close to the center of the next pair of balls and a small negative reward for being too far away.  
       
