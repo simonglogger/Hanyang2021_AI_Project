@@ -63,7 +63,7 @@ In order to find a function that satisfies the Bellman equation, we want to get 
 
 The Q-neural network needs to be trained in order to be performant enough to get close to the expected reward given by the Bellman equation. For that, every transitions from a state to another are kept in a replay memory table, and random batches of transitions are created to train the neural network. This is  because learning from batches of consecutive samples is not efficient and will not lead to good performance since consecutive samples are strongly correlated. This method is called the experience replay method.
 
-Finally, in order to improve the training of the neural network, we define a randomness probability that tells whether the action at a given state is going to be taken by the agent or randomly. This probability epsilon is initialized at 1 or a number close to 1, then we define a decay smaller than 1, which will be multiplied to the epsilon at every step. By the end of the learning, the epsilon will reach its minimum value, and almost all of the decisions regarding the next action will be taken by the neural network.
+Finally, in order to improve the training of the neural network, we define a randomness probability that tells whether the action at a given state is going to be taken by the agent or randomly. This probability ε is initialized at 1 or a number close to 1, then we define a decay smaller than 1, which will be multiplied to the ε at every step. By the end of the learning, ε will reach its minimum value, and almost all of the decisions regarding the next action will be taken by the neural network.
 
 What we just explained is summarized in the following pseudo-code :
 
