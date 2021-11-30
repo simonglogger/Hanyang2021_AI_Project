@@ -59,7 +59,7 @@ One problem with this method is that we must compute Q(s,a) for every existing s
 
 In order to find a function that satisfies the Bellman equation, we want to get as close as possible to the expected reward, for that we define the loss function as following, which is going to be used to train the neural network by backpropagating the loss via gradient descent to the different layers of the deep neural network.
 
-<img src="photos/loss.png" width="400">
+<img src="photos/loss.png" width="550">
 
 The Q-neural network needs to be trained in order to be performant enough to get close to the expected reward given by the Bellman equation. For that, every transitions from a state to another are kept in a replay memory table, and random batches of transitions are created to train the neural network. This is  because learning from batches of consecutive samples is not efficient and will not lead to good performance since consecutive samples are strongly correlated. This method is called the experience replay method.
 
