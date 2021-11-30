@@ -2,13 +2,8 @@ import random
 import numpy as np
 from collections import deque
 import torch
-import torch.nn as nn 
-import os 
+import torch.nn as nn  
 
-output_dir = 'model_output/flappy_bird/'
-
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
 
 class Agent(nn.Module):
     def __init__(self, input_size, output_size):
@@ -16,19 +11,28 @@ class Agent(nn.Module):
         
         self.input_size = input_size
         self.output_size = output_size
-        self.memory = deque(maxlen=50000) 
+        self.memory = deque(maxlen=2000) 
         self.gamma = 0.95 
-        self.epsilon = 1 
-        self.epsilon_decay = 0.9985 
+        
+        #Training = 0, Testing = 1 !!!
+        use_case = 1
+        if use_case == 0:
+            self.epsilon = 1 
+        elif use_case == 1:
+            self.epsilon = 0
+        else:
+            print("Wrong setting!!")
+            
+        self.epsilon_decay = 0.99
         self.epsilon_min = 0.001 
-        self.learning_rate = 0.00005  
+        self.learning_rate = 0.01 
         
         self.model = nn.Sequential( 
-            nn.Linear(input_size, 48), 
-            nn.Sigmoid(), 
-            nn.Linear(48, 48), 
-            nn.Sigmoid(),
-            nn.Linear(48, output_size)) 
+            nn.Linear(input_size, 24), 
+            nn.ReLU(), 
+            nn.Linear(24, 24),
+            nn.ReLU(),
+            nn.Linear(24, output_size)) 
     
     def forward(self, data): 
         return self.model(data)
@@ -38,7 +42,6 @@ class Agent(nn.Module):
 
     def act(self, state):
         if np.random.rand() <= self.epsilon:
-            #print("Random Action")
             if random.randrange(4) == 0:
                 y = 1
             else:
@@ -48,8 +51,8 @@ class Agent(nn.Module):
         state = torch.from_numpy(state).float()
         act_values = self.model.forward(state) 
         act_values = act_values.detach().numpy()
-        print("Agent Action ", act_values)
-        print("Action: ", np.argmax(act_values))
+        #print("Agent Action ", act_values)
+        #print("Action: ", np.argmax(act_values))
         return np.argmax(act_values) 
 
     def replay(self, batch_size): 
@@ -70,9 +73,3 @@ class Agent(nn.Module):
             model_output = self.model.forward(state)
      
         return model_output, target_f
-
-    def load(self, name):
-        self.model.load_weights(name)
-
-    def save(self, name):
-        self.model.save_weights(name)
