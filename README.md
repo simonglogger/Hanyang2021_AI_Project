@@ -91,16 +91,30 @@ DQN: https://github.com/the-deep-learners/TensorFlow-LiveLessons/blob/master/not
 We basically trained the AI agent within two different game setups. The first setup can be considered as a very easy game, the second is more difficult since the vertical distance between the balls is reduced. We have made slight changes on the reward function, the learning rate and epsilon. The rest of the code remains unchanged.
   
   
-- Easy Game  
+- Easy Game:  
 The training of the AI agent for the easy game can be taken from the following image.
   
 <img src="Score_Training_Easy.png" width="400">
   
 In the beginning, it's difficult for the agent to learn something meaningful. After a certain number of epochs, it reaches the maximum step number the first time. The neural network is saved several times within the next epochs, the maximum step number gets increased and the learning rate decreased. One can clearly see the improvement of the AI agent trough training.
   
-The neural network that is saved last is then used for testing the AI agent within the game. As a result, the easy game can be played endless.
+The neural network that is saved last is then used for testing the AI agent within the easy game. As a result, the easy game can be played endless.
   
 https://user-images.githubusercontent.com/92134911/143967696-249a0b24-6c30-4693-8608-60f41a1c3ebc.mp4
+  
+  
+- Difficult Game:  
+The training of the AI agent for the difficult game can be taken from the following image.  
+  
+<img src="Score_Training_Difficult.png" width="400">
+  
+If the saved neural network is then used to test the AI agent within the difficult game, we get the following result.  
+  
+<img src="Score_Testing_Difficult.png" width="400">
+  
+In this case, the game can not be played endless, but reaches a maximum score of 25. From this, it can be concluded that the AI agent still learns something meaningful during training. 
+  
+https://user-images.githubusercontent.com/92134911/143968297-7f640a86-93b7-44f5-b8b9-6f372bd3527f.mp4
 
 
 ## 6. Conclusion
