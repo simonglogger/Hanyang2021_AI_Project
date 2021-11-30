@@ -17,7 +17,7 @@ We use a simple version of the famous game Flappy Bird and adapt the source code
   
 The game map:
 
-<img src="Game.png" width="400">
+<img src="photos/Game.png" width="400">
   
 Sources:   
 Game: http://www.grantjenks.com/docs/freegames/flappy.html 
