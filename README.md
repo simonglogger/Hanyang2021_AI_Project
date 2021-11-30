@@ -43,6 +43,8 @@ The two actions that the bird can take are either to flap or to do nothing.
 
 How can we quantify how good or bad taking a particular action at a given state is? For that, we use what is called a Q-value function, which is why the algorithm we use is called Q Learning. Q(s,a) is the Q-value function, which gives the expected cumulative reward from taking action a in state s. A discount factor γ can be introduced in the cumulative reward formula in order to give more importance to rewards coming in the next steps than steps that are coming later on.
 
+<img src="photos/Game.png" width="400">
+
 The goal of Reinforcement Learning, and thus of Q learning, is to maximize this sum of cumulative rewards, because we want the agent to perform as good as possible according to our criterias. Since we want the bird to fly as far as possible, we just need to define rewards that are going to strongly penalize the bird’s death, and encourage its survival.
 
 We thus have to find Q*, which is the function giving the maximum expected cumulative reward achievable from a given state-action pair. Q* satisfies the Bellman equation. The optimal policy consists in taking the best action at any state as specified by Q*, one way to solve this is with a value iteration algorithm where the Bellman equation is being used as an iterative update.
