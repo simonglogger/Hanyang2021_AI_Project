@@ -43,23 +43,23 @@ The two actions that the bird can take are either to flap or to do nothing.
 
 How can we quantify how good or bad taking a particular action at a given state is? For that, we use what is called a Q-value function, which is why the algorithm we use is called Q Learning. Q(s,a) is the Q-value function, which gives the expected cumulative reward from taking action a in state s. A discount factor γ can be introduced in the cumulative reward formula in order to give more importance to rewards coming in the next steps than steps that are coming later on.
 
-<img src="photos/Q.png" width="250">
+<img src="photos/Q.png" width="325">
 
 The goal of Reinforcement Learning, and thus of Q learning, is to maximize this sum of cumulative rewards, because we want the agent to perform as good as possible according to our criterias. Since we want the bird to fly as far as possible, we just need to define rewards that are going to strongly penalize the bird’s death, and encourage its survival.
 
 We thus have to find Q*, which is the function giving the maximum expected cumulative reward achievable from a given state-action pair. Q* satisfies the Bellman equation. The optimal policy consists in taking the best action at any state as specified by Q*, one way to solve this is with a value iteration algorithm where the Bellman equation is being used as an iterative update.
 
-<img src="photos/Q2.png" width="250">
+<img src="photos/Q2.png" width="325">
 
 The Bellman equation is the following :
 
-<img src="photos/bellman.png" width="250">
+<img src="photos/Bellmann.png" width="325">
 
 One problem with this method is that we must compute Q(s,a) for every existing state-action pair, which is not possible given that a state is compounded by 6 different variables, so there exists an infinite number of states. A solution for this problem is to use a neural network as a function approximator, the algorithm is then called Deep Q Learning. 
 
 In order to find a function that satisfies the Bellman equation, we want to get as close as possible to the expected reward, for that we define the loss function as following, which is going to be used to train the neural network by backpropagating the loss via gradient descent to the different layers of the deep neural network.
 
-<img src="photos/loss.png" width="250">
+<img src="photos/loss.png" width="400">
 
 The Q-neural network needs to be trained in order to be performant enough to get close to the expected reward given by the Bellman equation. For that, every transitions from a state to another are kept in a replay memory table, and random batches of transitions are created to train the neural network. This is  because learning from batches of consecutive samples is not efficient and will not lead to good performance since consecutive samples are strongly correlated. This method is called the experience replay method.
 
