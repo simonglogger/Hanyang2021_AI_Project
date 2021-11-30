@@ -104,6 +104,7 @@ The neural network that is saved last is then used for testing the AI agent with
 https://user-images.githubusercontent.com/92134911/143967696-249a0b24-6c30-4693-8608-60f41a1c3ebc.mp4
   
   
+  
 - Difficult Game:  
 The training of the AI agent for the difficult game can be taken from the following image.  
   
