@@ -96,7 +96,7 @@ The training of the AI agent for the easy game can be taken from the following i
   
 <img src="Score_Training_Easy.png" width="400">
   
-In the beginning, it's difficult for the agent to learn something meaningful. After a certain number of epochs, it reaches the maximum step number for the first time. The neural network is saved several times within the next epochs, the maximum step number gets increased and the learning rate decreased. One can clearly see the improvement of the AI agent trough training.
+In the beginning, it's difficult for the agent to learn something meaningful. After a certain number of epochs, it reaches the maximum step number for the first time. The neural network is saved several times within the next epochs, the maximum step number increases and the learning rate decreases. One can clearly see the improvement of the AI agent trough training.
   
 The neural network that is saved last is then used for testing the AI agent within the easy game. As a result, the easy game can be played endless.
   
