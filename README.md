@@ -47,15 +47,15 @@ How can we quantify how good or bad taking a particular action at a given state 
 
 The goal of Reinforcement Learning, and thus of Q learning, is to maximize this sum of cumulative rewards, because we want the agent to perform as good as possible according to our criterias. Since we want the bird to fly as far as possible, we just need to define rewards that are going to strongly penalize the bird’s death, and encourage its survival.
 
-We thus have to find Q*, which is the function giving the maximum expected cumulative reward achievable from a given state-action pair. Q* satisfies the Bellman equation. The optimal policy consists in taking the best action at any state as specified by Q*, one way to solve this is with a value iteration algorithm where the Bellman equation is being used as an iterative update.
+We thus have to find Q*, which is the function giving the maximum expected cumulative reward achievable from a given state-action pair. 
 
 <img src="photos/Q2.png" width="325">
 
-The Bellman equation is the following :
+Q* satisfies the Bellman equation, which is the following :
 
 <img src="photos/Bellmann.png" width="325">
 
-One problem with this method is that we must compute Q(s,a) for every existing state-action pair, which is not possible given that a state is compounded by 6 different variables, so there exists an infinite number of states. A solution for this problem is to use a neural network as a function approximator, the algorithm is then called Deep Q Learning. 
+The optimal policy consists in taking the best action at any state as specified by Q*, one way to solve this is with a value iteration algorithm where the Bellman equation is being used as an iterative update. One problem with this method is that we must compute Q(s,a) for every existing state-action pair, which is not possible given that a state is compounded by 6 different variables, so there exists an infinite number of states. A solution for this problem is to use a neural network as a function approximator, the algorithm is then called Deep Q Learning. 
 
 In order to find a function that satisfies the Bellman equation, we want to get as close as possible to the expected reward, for that we define the loss function as following, which is going to be used to train the neural network by backpropagating the loss via gradient descent to the different layers of the deep neural network.
 
