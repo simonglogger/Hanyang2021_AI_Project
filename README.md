@@ -137,9 +137,9 @@ After testing both game setups, one can clearly say that in both cases, the AI a
   
   
 ## 7. How to train/test agent
-To train and test the AI agent, all four scripts have to be in the same folder. For training, one only has to run the "Main_Control" script. Here, the AI agent class must be set to training mode. This mode uses the epsilon parameter to perform random actions to explore the environment during training. This randomness has to be switched of for testing to give the neural network the control over all actions. For this purpose, the "use_case" parameter in the "Agent" script has to be set. 
+To train and test the AI agent, all four scripts have to be in the same folder. For training, one only has to run the "Main_Control" script. In this case, the AI agent class must be set to training mode. This mode uses the epsilon parameter to perform random actions to explore the environment during training. This randomness has to be switched of for testing to give the neural network the control over all actions. For this purpose, the "use_case" parameter in the "Agent" script has to be set. 
   
-So for training, one has to run the "Main_Control" script and set the "use_case" parameter to 0, for testing one has to run the "Game_Play_By_Agent" and set the "use_case" parameter to 1.
+So for training, one has to run the "Main_Control" script and set the "use_case" parameter to 0, for testing one has to run the "Game_Play_By_Agent" script and set the "use_case" parameter to 1.
   
 <img src="photos/Agent_Train_Test_Switch.png" width="400">
 
